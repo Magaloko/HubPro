@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Hub Pro - Technische Dokumentation v1.0</title>
+<style>
+:root{--brand:#4c6ef5;--brand-light:#dbe4ff;--brand-dark:#364fc7;--text:#1a1a2e;--text-light:#6b7280;--bg:#ffffff;--bg-alt:#f8f9fa;--border:#e5e7eb;--success:#22c55e;--warning:#eab308;--danger:#ef4444;--code-bg:#1e1e2e;--code-text:#e2e8f0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);line-height:1.7;background:var(--bg);font-size:15px}
+.page{max-width:900px;margin:0 auto;padding:40px 50px}
+h1{font-size:2em;color:var(--brand-dark);margin:0 0 10px;border-bottom:3px solid var(--brand);padding-bottom:12px}
+h2{font-size:1.5em;color:var(--brand-dark);margin:50px 0 16px;border-bottom:2px solid var(--brand-light);padding-bottom:8px}
+h3{font-size:1.2em;color:var(--text);margin:30px 0 12px}
+h4{font-size:1.05em;color:var(--text);margin:20px 0 8px}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 16px 24px}
+li{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px}
+th{background:var(--brand);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:9px 14px;border-bottom:1px solid var(--border)}
+tr:nth-child(even){background:var(--bg-alt)}
+code{background:var(--bg-alt);padding:2px 6px;border-radius:4px;font-size:0.9em;font-family:'Fira Code',monospace}
+pre{background:var(--code-bg);color:var(--code-text);padding:20px;border-radius:8px;overflow-x:auto;margin:16px 0 24px;font-size:13px;line-height:1.6;font-family:'Fira Code',monospace}
+pre .kw{color:#c678dd}
+pre .fn{color:#61afef}
+pre .str{color:#98c379}
+pre .cm{color:#5c6370;font-style:italic}
+pre .num{color:#d19a66}
+.cover{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:60px;page-break-after:always}
+.cover h1{color:#fff;border:none;font-size:3.2em;margin-bottom:8px}
+.cover .subtitle{font-size:1.3em;color:var(--brand-light);margin-bottom:40px}
+.cover .meta{font-size:0.95em;color:#9ca3af;line-height:2}
+.cover .logo{width:80px;height:80px;background:var(--brand);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 30px;font-size:36px;font-weight:800;color:#fff}
+.toc{page-break-after:always}
+.toc ul{list-style:none;margin-left:0}
+.toc ul li{padding:6px 0;border-bottom:1px dotted var(--border)}
+.toc ul li a{color:var(--text);text-decoration:none;display:flex;justify-content:space-between}
+.toc ul li a:hover{color:var(--brand)}
+.toc ul li a .num{color:var(--brand);font-weight:700;margin-right:10px}
+.note{background:var(--brand-light);border-left:4px solid var(--brand);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+.warning{background:#fef3c7;border-left:4px solid var(--warning);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+.diagram{background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:24px;margin:16px 0;text-align:center;font-family:'Fira Code',monospace;font-size:13px;white-space:pre;overflow-x:auto;line-height:1.5}
+.screenshot{background:var(--bg-alt);border:2px dashed var(--border);border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:20px 0;color:var(--text-light)}
+.screenshot .icon{font-size:48px;margin-bottom:10px;opacity:0.3}
+.screenshot .label{font-weight:600;font-size:14px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-blue{background:var(--brand-light);color:var(--brand-dark)}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-yellow{background:#fef9c3;color:#854d0e}
+.badge-red{background:#fee2e2;color:#991b1b}
+.flow-step{display:inline-block;background:var(--brand);color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;margin:4px}
+.flow-arrow{display:inline-block;color:var(--brand);font-size:20px;margin:0 4px;vertical-align:middle}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:16px 0}
+.stat-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-card .value{font-size:2em;font-weight:800;color:var(--brand)}
+.stat-card .label{color:var(--text-light);font-size:13px;margin-top:4px}
+footer{text-align:center;padding:30px;color:var(--text-light);font-size:13px;border-top:1px solid var(--border);margin-top:60px}
+@media print{
+  .cover{min-height:auto;padding:80px 40px}
+  .page{padding:20px 30px}
+  h2{page-break-before:always}
+  pre{font-size:11px}
+  table{font-size:12px}
+  .screenshot{height:160px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= COVER PAGE ================= -->
+<div class="cover">
+  <div class="logo">CH</div>
+  <h1>Content Hub Pro</h1>
+  <div class="subtitle">Technischer Dokumentationsbericht</div>
+  <div class="meta">
+    <strong>Version:</strong> 1.0.0<br>
+    <strong>Status:</strong> Finaler Entwurf<br>
+    <strong>Datum:</strong> M&auml;rz 2024<br>
+    <strong>Autor:</strong> Content Hub Pro Engineering Team<br>
+    <strong>Zielgruppe:</strong> Frontend-Entwickler, System-Architekten, Produktmanager<br>
+    <strong>Klassifizierung:</strong> Intern / Vertraulich
+  </div>
+</div>
+
+<!-- ================= TABLE OF CONTENTS ================= -->
+<div class="page toc">
+  <h1>Inhaltsverzeichnis</h1>
+  <ul>
+    <li><a href="#ch1"><span class="num">1</span>Executive Summary</a></li>
+    <li><a href="#ch2"><span class="num">2</span>Product Vision</a></li>
+    <li><a href="#ch3"><span class="num">3</span>System Architecture</a></li>
+    <li><a href="#ch4"><span class="num">4</span>Backend Architecture</a></li>
+    <li><a href="#ch5"><span class="num">5</span>Frontend Architecture</a></li>
+    <li><a href="#ch6"><span class="num">6</span>Database Schema Documentation</a></li>
+    <li><a href="#ch7"><span class="num">7</span>Menu Structure</a></li>
+    <li><a href="#ch8"><span class="num">8</span>Feature Documentation</a></li>
+    <li><a href="#ch9"><span class="num">9</span>User Flow Diagrams</a></li>
+    <li><a href="#ch10"><span class="num">10</span>User Manual / Usage Instructions</a></li>
+    <li><a href="#ch11"><span class="num">11</span>Security Architecture</a></li>
+    <li><a href="#ch12"><span class="num">12</span>Scalability Strategy</a></li>
+    <li><a href="#ch13"><span class="num">13</span>Development Roadmap</a></li>
+    <li><a href="#ch14"><span class="num">14</span>Appendix</a></li>
+  </ul>
+</div>
+
+<!-- ================= CHAPTER 1 ================= -->
+<div class="page">
+<h1 id="ch1">1. Executive Summary</h1>
+<p>Der <strong>Content Hub Pro</strong> ist eine hochspezialisierte Enterprise-SaaS-Plattform, die entwickelt wurde, um die fragmentierten Workflows moderner Content-Agenturen zu zentralisieren. Aktuell nutzen Agenturen oft eine Vielzahl isolierter Tools &mdash; Excel f&uuml;r die Planung, Word f&uuml;r die Redaktion, Later f&uuml;r Social Media, Neuronwriter f&uuml;r SEO. Der Content Hub Pro b&uuml;ndelt all diese Prozesse in einer kollaborativen Single-Page-Application (SPA).</p>
+
+<div class="cols">
+  <div class="stat-card"><div class="value">6</div><div class="label">Workflow-Phasen</div></div>
+  <div class="stat-card"><div class="value">3</div><div class="label">Benutzerrollen</div></div>
+  <div class="stat-card"><div class="value">4</div><div class="label">Plattform-Integrationen</div></div>
+  <div class="stat-card"><div class="value">40%</div><div class="label">Effizienzsteigerung</div></div>
+</div>
+
+<p>Die Plattform zeichnet sich durch eine strikte Trennung von <strong>Social Media Management</strong> und <strong>SEO-Blog-Content</strong> aus, w&auml;hrend sie gleichzeitig eine gemeinsame Datenbasis f&uuml;r Analytics und Kundenfreigaben nutzt. Durch die Integration von KI-gest&uuml;tzten Discovery-Tools und einem Track-Changes-Modus f&uuml;r Kunden wird die Effizienz in der Kommunikation zwischen Agentur und Klient um bis zu 40% gesteigert.</p>
+
+<h3>Kernmodule</h3>
+<table>
+  <tr><th>Modul</th><th>Beschreibung</th><th>Zielgruppe</th></tr>
+  <tr><td>Social Media Hub</td><td>6-Phasen Kanban-Board mit Drag &amp; Drop</td><td>Agentur + Kunde</td></tr>
+  <tr><td>SEO &amp; Web Content</td><td>Artikel-Editor mit Live-SEO-Scoring</td><td>Agentur + Kunde</td></tr>
+  <tr><td>Social Discovery</td><td>Trend-Analysen und Viral-Hook-Generierung</td><td>Agentur</td></tr>
+  <tr><td>Keyword Explorer</td><td>Keyword-Recherche mit Metriken</td><td>Agentur</td></tr>
+  <tr><td>Performance Dashboard</td><td>Aggregierte Analytics-Daten mit Charts</td><td>Alle</td></tr>
+  <tr><td>Post-Analytics</td><td>Detail-Metriken pro Content-Asset</td><td>Alle</td></tr>
+</table>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: Dashboard &Uuml;bersicht</div></div>
+
+<!-- ================= CHAPTER 2 ================= -->
+<h1 id="ch2">2. Product Vision</h1>
+<p>Die Vision des Content Hub Pro ist es, das <strong>Betriebssystem f&uuml;r Content-Marketing</strong> zu werden.</p>
+
+<h3>Vier strategische S&auml;ulen</h3>
+<table>
+  <tr><th>S&auml;ule</th><th>Beschreibung</th></tr>
+  <tr><td><strong>Zentralisierung</strong></td><td>Ein einziger &ldquo;Source of Truth&rdquo; f&uuml;r alle Content-Assets. Keine Datensilos mehr zwischen Planung, Erstellung und Distribution.</td></tr>
+  <tr><td><strong>Datengetriebene Kreativit&auml;t</strong></td><td>Integration von Keyword-Metriken und Social-Trends direkt in den Erstellungsprozess. Der SEO-Score wird live berechnet.</td></tr>
+  <tr><td><strong>Transparente Kollaboration</strong></td><td>Ein Freigabeprozess, der &Auml;nderungen nachvollziehbar macht und Revisionen minimiert. Track-Changes-Modus f&uuml;r Kunden.</td></tr>
+  <tr><td><strong>Automatisierung</strong></td><td>One-Click-Publishing von der Planung direkt in die Zielkan&auml;le (WordPress, Instagram, LinkedIn).</td></tr>
+</table>
+
+<div class="note"><strong>Roadmap-Ziel:</strong> In Phase 3 wird die API-Integration f&uuml;r WordPress REST, Meta Graph API und LinkedIn API implementiert, um den One-Click-Publishing-Workflow zu erm&ouml;glichen.</div>
+
+<!-- ================= CHAPTER 3 ================= -->
+<h1 id="ch3">3. System Architecture</h1>
+<p>Die Architektur folgt einem modernen Cloud-Native-Ansatz, um maximale Geschwindigkeit und Skalierbarkeit zu gew&auml;hrleisten.</p>
+
+<h3>3.1 Hochlevel-Architektur</h3>
+<div class="diagram">[ Client Browser ] &lt;---- HTTPS/WSS ----&gt; [ Vercel Edge Network ]
+        |                                         |
+        |              [ React SPA (Frontend) ]
+        |                        |
+        +------------------------+
+                                 |
+              [ Google Firebase Platform ]
+       /--------------------------------------------\
+       | Auth | Firestore (DB) | Storage | Functions |
+       \--------------------------------------------/
+                                 |
+              [ Externe Schnittstellen ]
+       (Meta API, LinkedIn, WP-REST, GA4, Shopify)</div>
+
+<h3>3.2 Komponenten-Interaktion</h3>
+<table>
+  <tr><th>Schicht</th><th>Technologie</th><th>Verantwortlichkeit</th></tr>
+  <tr><td>Frontend</td><td>React 18 SPA</td><td>UI-Rendering, State-Management, lokale SEO-Score-Berechnung</td></tr>
+  <tr><td>Backend-as-a-Service</td><td>Google Firebase</td><td>Echtzeit-Synchronisation, Authentifizierung, Datenhaltung</td></tr>
+  <tr><td>Deployment</td><td>Vercel</td><td>CI/CD-Pipelines, Edge-Server, CDN</td></tr>
+  <tr><td>Externe APIs</td><td>REST/GraphQL</td><td>Meta API, LinkedIn API, WP-REST, GA4</td></tr>
+</table>
+
+<h3>3.3 Datenfluss-Diagramm</h3>
+<div class="diagram">Benutzer-Interaktion
+        |
+        v
+  React Context (State) --&gt; useMemo/useCallback (Optimierung)
+        |
+        v
+  Component Rendering --&gt; Tailwind CSS (Styling)
+        |
+        v
+  Event Handler --&gt; setState / addNotification
+        |
+        v
+  [Optional] Firebase SDK --&gt; Firestore Read/Write</div>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: System-Architektur Diagramm</div></div>
+
+<!-- ================= CHAPTER 4 ================= -->
+<h1 id="ch4">4. Backend Architecture</h1>
+<p>Die Applikation ist als Serverless-Architektur auf Firebase konzipiert. Das aktuelle MVP nutzt Demo-Daten im Frontend mit vorbereiteter Firebase-Integration.</p>
+
+<h3>4.1 Authentifizierung (Firebase Auth)</h3>
+<p>Das System unterst&uuml;tzt E-Mail/Passwort sowie Google-OAuth. Die aktuelle Implementierung nutzt einen simulierten Auth-Flow mit drei Demo-Benutzern:</p>
+
+<pre><span class="cm">// AuthContext.jsx - Demo-Benutzer</span>
+<span class="kw">const</span> DEMO_USERS = [
+  { id: <span class="str">'u1'</span>, email: <span class="str">'admin@hubpro.de'</span>,   name: <span class="str">'Max M&uuml;ller'</span>,    role: <span class="str">'Admin'</span>,   avatar: <span class="str">'MM'</span> },
+  { id: <span class="str">'u2'</span>, email: <span class="str">'agentur@hubpro.de'</span>, name: <span class="str">'Sarah Schmidt'</span>,  role: <span class="str">'Agentur'</span>, avatar: <span class="str">'SS'</span> },
+  { id: <span class="str">'u3'</span>, email: <span class="str">'kunde@hubpro.de'</span>,   name: <span class="str">'Thomas Weber'</span>,   role: <span class="str">'Kunde'</span>,   avatar: <span class="str">'TW'</span> },
+]</pre>
+
+<p>Die <code>login()</code>-Funktion simuliert einen API-Call mit 800ms Verz&ouml;gerung. Die <code>loginAsRole()</code>-Funktion erm&ouml;glicht sofortigen Demo-Zugang.</p>
+
+<h3>4.2 Datenhaltung (Firestore)</h3>
+<p>Firestore wird als NoSQL-Dokumentendatenbank genutzt. Die Datenstruktur ist hierarchisch aufgebaut:</p>
+<pre>/artifacts/{appId}/public/data/
+    /social_posts/{postId}
+    /seo_articles/{articleId}
+    /keywords/{keywordId}
+    /analytics/{reportId}</pre>
+
+<h3>4.3 Cloud Functions (Optionaler Ausbau)</h3>
+<p>F&uuml;r rechenintensive Aufgaben oder Webhooks von Drittanbietern werden Firebase Cloud Functions (Node.js) vorgesehen:</p>
+<ul>
+  <li><strong>Stripe Webhooks:</strong> Abonnement-Verwaltung und Zahlungsverarbeitung</li>
+  <li><strong>Image Processing:</strong> Automatische Bildoptimierung f&uuml;r verschiedene Plattformgr&ouml;&szlig;en</li>
+  <li><strong>Scheduled Publishing:</strong> Cron-basiertes Ausl&ouml;sen von geplanten Posts</li>
+  <li><strong>Analytics Aggregation:</strong> Periodische Zusammenfassung von Performance-Daten</li>
+</ul>
+
+<h3>4.4 Rollenbasierte Zugriffskontrolle</h3>
+<table>
+  <tr><th>Rolle</th><th>Beschreibung</th><th>Berechtigungen</th></tr>
+  <tr><td><span class="badge badge-red">Admin</span></td><td>Systemadministrator</td><td>Voller Zugriff auf alle Module und Einstellungen</td></tr>
+  <tr><td><span class="badge badge-blue">Agentur</span></td><td>Content-Team der Agentur</td><td>Erstellen, Bearbeiten, Discovery, Analytics</td></tr>
+  <tr><td><span class="badge badge-green">Kunde</span></td><td>Externer Auftraggeber</td><td>Nur Approval-Board, Feedback, Analytics-Ansicht</td></tr>
+</table>
+
+<!-- ================= CHAPTER 5 ================= -->
+<h1 id="ch5">5. Frontend Architecture</h1>
+
+<h3>5.1 Technologie-Stack</h3>
+<table>
+  <tr><th>Technologie</th><th>Version</th><th>Verwendungszweck</th></tr>
+  <tr><td>React</td><td>18.3</td><td>UI-Framework, Context API f&uuml;r State-Management</td></tr>
+  <tr><td>Vite</td><td>6.0</td><td>Build-Tool, HMR, Dev-Server</td></tr>
+  <tr><td>Tailwind CSS</td><td>3.4</td><td>Utility-First CSS, Responsive Design, Dark Mode</td></tr>
+  <tr><td>Lucide-React</td><td>0.468</td><td>Konsistente Icon-Sprache (SVG)</td></tr>
+  <tr><td>Chart.js</td><td>4.4</td><td>Analytics-Visualisierungen (Line, Bar, Doughnut)</td></tr>
+  <tr><td>react-chartjs-2</td><td>5.2</td><td>React-Wrapper f&uuml;r Chart.js</td></tr>
+</table>
+
+<h3>5.2 Komponenten-Hierarchie</h3>
+<pre>App.jsx
+  &boxv;&boxh;&boxh; AuthProvider (Context)
+  &boxv;   &boxv;&boxh;&boxh; AppProvider (Context)
+  &boxv;       &boxv;&boxh;&boxh; AppContent
+  &boxv;           &boxv;&boxh;&boxh; [!user] LoginPage
+  &boxv;           &boxv;&boxh;&boxh; [user] Layout
+  &boxv;               &boxv;&boxh;&boxh; Sidebar (Navigation)
+  &boxv;               &boxv;&boxh;&boxh; Header (Dark Mode, User Menu)
+  &boxv;               &boxv;&boxh;&boxh; Notifications (Toast)
+  &boxv;               &boxv;&boxh;&boxh; [View Router]
+  &boxv;                   &boxv;&boxh;&boxh; SocialDiscovery
+  &boxv;                   &boxv;&boxh;&boxh; KeywordExplorer
+  &boxv;                   &boxv;&boxh;&boxh; SocialHub &boxh;&boxh;&gt; PostEditor (Modal)
+  &boxv;                   &boxv;&boxh;&boxh; SEOHub &boxh;&boxh;&gt; ArticleEditor (Modal)
+  &boxv;                   &boxv;&boxh;&boxh; PerformanceDashboard
+  &boxv;                   &boxv;&boxh;&boxh; PostAnalytics</pre>
+
+<h3>5.3 Dateistruktur</h3>
+<pre>src/
+&boxv;&boxh;&boxh; main.jsx                          <span class="cm"># React DOM Entry Point</span>
+&boxv;&boxh;&boxh; App.jsx                           <span class="cm"># Haupt-App mit Provider-Wrapper</span>
+&boxv;&boxh;&boxh; index.css                         <span class="cm"># Tailwind Directives + Custom CSS</span>
+&boxv;&boxh;&boxh; contexts/
+&boxv;   &boxv;&boxh;&boxh; AppContext.jsx                <span class="cm"># View, Sidebar, Dark Mode, Notifications</span>
+&boxv;   &boxv;&boxh;&boxh; AuthContext.jsx               <span class="cm"># User, Login, Logout, Rollen</span>
+&boxv;&boxh;&boxh; components/
+&boxv;   &boxv;&boxh;&boxh; Layout/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; Sidebar.jsx              <span class="cm"># Navigations-Sidebar (collapsible)</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; Header.jsx               <span class="cm"># Top-Header mit Dark Mode Toggle</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; Layout.jsx               <span class="cm"># Wrapper-Komponente</span>
+&boxv;   &boxv;&boxh;&boxh; Auth/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; LoginPage.jsx            <span class="cm"># Login-Formular + Demo-Buttons</span>
+&boxv;   &boxv;&boxh;&boxh; SocialMedia/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; SocialHub.jsx            <span class="cm"># 6-Phasen Kanban Board</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; PostEditor.jsx           <span class="cm"># Post erstellen/bearbeiten Modal</span>
+&boxv;   &boxv;&boxh;&boxh; SEO/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; SEOHub.jsx               <span class="cm"># Artikel-Tabelle + Verwaltung</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; ArticleEditor.jsx        <span class="cm"># SEO-Editor mit Score-Analyse</span>
+&boxv;   &boxv;&boxh;&boxh; Discovery/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; SocialDiscovery.jsx      <span class="cm"># Trends + Viral Hooks</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; KeywordExplorer.jsx      <span class="cm"># Keyword-Recherche Tabelle</span>
+&boxv;   &boxv;&boxh;&boxh; Analytics/
+&boxv;   &boxv;   &boxv;&boxh;&boxh; PerformanceDashboard.jsx <span class="cm"># Charts + KPIs</span>
+&boxv;   &boxv;   &boxv;&boxh;&boxh; PostAnalytics.jsx        <span class="cm"># Detail-Metriken pro Post</span>
+&boxv;   &boxv;&boxh;&boxh; shared/
+&boxv;       &boxv;&boxh;&boxh; Notifications.jsx        <span class="cm"># Toast-Benachrichtigungen</span>
+&boxv;&boxh;&boxh; data/
+&boxv;   &boxv;&boxh;&boxh; mockData.js                  <span class="cm"># Demo-Daten (12 Posts, 8 Artikel, 15 Keywords)</span>
+&boxv;&boxh;&boxh; utils/
+    &boxv;&boxh;&boxh; seoScoring.js                <span class="cm"># SEO-Algorithmus (6 Kriterien, max 100 Pkt)</span></pre>
+
+<h3>5.4 State-Management</h3>
+<p>Das State-Management basiert auf <strong>React Context API</strong> mit zwei getrennten Contexts:</p>
+
+<table>
+  <tr><th>Context</th><th>State-Felder</th><th>Actions</th></tr>
+  <tr><td><code>AppContext</code></td><td>currentView, sidebarOpen, darkMode, notifications[]</td><td>setCurrentView, toggleSidebar, toggleDarkMode, addNotification</td></tr>
+  <tr><td><code>AuthContext</code></td><td>user, loading</td><td>login(email, pw), loginAsRole(role), logout()</td></tr>
+</table>
+
+<p>Daten-State (Posts, Articles) wird direkt in <code>AppContent</code> via <code>useState</code> verwaltet, mit <code>useCallback</code>-optimierten Update-Handlern.</p>
+
+<h3>5.5 Styling-System</h3>
+<p>Tailwind CSS im <strong>Class-Strategy Dark Mode</strong>. Custom CSS-Komponenten:</p>
+<pre><span class="cm">/* index.css - Custom Component Layer */</span>
+.btn-primary  { @apply px-4 py-2 bg-brand-600 text-white rounded-lg ... }
+.btn-secondary{ @apply px-4 py-2 bg-white border rounded-lg ... }
+.card         { @apply bg-white rounded-xl border shadow-sm }
+.input        { @apply w-full px-3 py-2 border rounded-lg ... }
+.badge        { @apply inline-flex px-2.5 py-0.5 rounded-full text-xs }
+.track-added  { @apply bg-green-100 text-green-800 px-0.5 rounded }
+.track-deleted{ @apply bg-red-100 text-red-800 line-through px-0.5 }</pre>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: Login-Seite mit Demo-Zugang</div></div>
+
+<!-- ================= CHAPTER 6 ================= -->
+<h1 id="ch6">6. Database Schema Documentation</h1>
+
+<h3>6.1 Collection: social_posts</h3>
+<p>Speichert alle Informationen zu geplanten und ver&ouml;ffentlichten Social Media Inhalten.</p>
+<table>
+  <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th><th>Beispiel</th></tr>
+  <tr><td><code>id</code></td><td>String (PK)</td><td>Eindeutige Dokumenten-ID</td><td><code>post_1001</code></td></tr>
+  <tr><td><code>title</code></td><td>String</td><td>Interner Titel</td><td>&ldquo;Reel: Produktlaunch Q2&rdquo;</td></tr>
+  <tr><td><code>platform</code></td><td>Enum</td><td>Zielplattform</td><td>Instagram | LinkedIn | Facebook | TikTok</td></tr>
+  <tr><td><code>content</code></td><td>String</td><td>Caption / Text</td><td>&ldquo;Sneak Peek! Unser neues...&rdquo;</td></tr>
+  <tr><td><code>assetUrl</code></td><td>String</td><td>Link zum Bild/Video</td><td><code>https://storage...</code></td></tr>
+  <tr><td><code>stage</code></td><td>Integer (0-5)</td><td>Workflow-Schritt</td><td>3 (Approval)</td></tr>
+  <tr><td><code>status</code></td><td>String</td><td>Aktueller Status</td><td>pending_review</td></tr>
+  <tr><td><code>scheduledDate</code></td><td>String</td><td>Geplantes Datum</td><td>&ldquo;2024-03-15&rdquo;</td></tr>
+  <tr><td><code>assignee</code></td><td>String</td><td>Zugewiesener Mitarbeiter</td><td>&ldquo;Max M&uuml;ller&rdquo;</td></tr>
+  <tr><td><code>client</code></td><td>String</td><td>Kundenname</td><td>&ldquo;Weber &amp; Partner&rdquo;</td></tr>
+  <tr><td><code>metrics</code></td><td>Map</td><td>Performance-Daten</td><td>{likes: 1243, shares: 89, comments: 67, reach: 15200}</td></tr>
+  <tr><td><code>comments</code></td><td>Array(Map)</td><td>Feedback-Verlauf</td><td>[{user: &rsquo;Kunde&rsquo;, msg: &rsquo;Top&rsquo;, date: &rsquo;...&rsquo;}]</td></tr>
+</table>
+
+<h3>6.2 Collection: seo_articles</h3>
+<p>Fokus auf Langform-Content und technische SEO-Parameter.</p>
+<table>
+  <tr><th>Feld</th><th>Typ</th><th>Beschreibung</th><th>Beispiel</th></tr>
+  <tr><td><code>id</code></td><td>String (PK)</td><td>Eindeutige ID</td><td><code>art_2001</code></td></tr>
+  <tr><td><code>title</code></td><td>String</td><td>H1 &Uuml;berschrift</td><td>&ldquo;Top 10 KI-Tools f&uuml;r Content Marketing&rdquo;</td></tr>
+  <tr><td><code>slug</code></td><td>String</td><td>URL-Pfad</td><td><code>ki-tools-content-marketing-2024</code></td></tr>
+  <tr><td><code>keywords</code></td><td>Array</td><td>Ziel-Keywords</td><td>[&rsquo;KI Tools&rsquo;, &rsquo;Content Marketing&rsquo;]</td></tr>
+  <tr><td><code>score</code></td><td>Integer</td><td>SEO-Score (0-100)</td><td>92</td></tr>
+  <tr><td><code>status</code></td><td>String</td><td>draft / review / approved / published</td><td>published</td></tr>
+  <tr><td><code>metaData</code></td><td>Map</td><td>Meta-Titel &amp; Description</td><td>{m_title: &rsquo;...&rsquo;, m_desc: &rsquo;...&rsquo;}</td></tr>
+  <tr><td><code>htmlContent</code></td><td>String</td><td>Redaktioneller Inhalt</td><td>&lt;h1&gt;...&lt;/h1&gt;</td></tr>
+  <tr><td><code>wordCount</code></td><td>Integer</td><td>Wortanzahl</td><td>2100</td></tr>
+  <tr><td><code>author</code></td><td>String</td><td>Autor</td><td>&ldquo;Julia Becker&rdquo;</td></tr>
+  <tr><td><code>client</code></td><td>String</td><td>Kunde</td><td>&ldquo;Hartmann Consulting&rdquo;</td></tr>
+  <tr><td><code>readingTime</code></td><td>Integer</td><td>Lesezeit in Minuten</td><td>11</td></tr>
+</table>
+
+<h3>6.3 Collection: keywordData</h3>
+<table>
+  <tr><th>Feld</th><th>Typ</th><th>Beispiel</th></tr>
+  <tr><td><code>keyword</code></td><td>String</td><td>&ldquo;Content Marketing&rdquo;</td></tr>
+  <tr><td><code>volume</code></td><td>Integer</td><td>14.800</td></tr>
+  <tr><td><code>difficulty</code></td><td>Integer (0-100)</td><td>72</td></tr>
+  <tr><td><code>cpc</code></td><td>Float</td><td>3.20 &euro;</td></tr>
+  <tr><td><code>trend</code></td><td>Enum</td><td>up | down | stable</td></tr>
+  <tr><td><code>relatedKeywords</code></td><td>Array</td><td>[&rsquo;Content Strategie&rsquo;, &rsquo;Content Planung&rsquo;]</td></tr>
+</table>
+
+<!-- ================= CHAPTER 7 ================= -->
+<h1 id="ch7">7. Menu Structure</h1>
+<p>Die Navigation ist in funktionale Cluster unterteilt, um die kognitive Last zu minimieren.</p>
+
+<h3>7.1 Sidebar-Layout</h3>
+<div class="diagram">+---------------------------+--------------------------------------+
+|  [LOGO] Content Hub Pro   |  Header: Dark Mode | Bell | User &gt;  |
++---------------------------+--------------------------------------+
+| STRATEGIE &amp; RECHERCHE     |                                      |
+|  &bull; Social Discovery *     |                                      |
+|  &bull; Keyword Explorer *     |        Main Content Area             |
+|                           |                                      |
+| MANAGEMENT                |        (Active View)                 |
+|  &bull; Social Media Hub      |                                      |
+|  &bull; SEO &amp; Web Content     |                                      |
+|                           |                                      |
+| REPORTING                 |                                      |
+|  &bull; Performance Dashboard |                                      |
+|  &bull; Post-Analytics        |                                      |
+|                           |                                      |
+| [&lt; Collapse]              |                                      |
++---------------------------+--------------------------------------+
+  * = nur f&uuml;r Agentur-Rolle sichtbar</div>
+
+<h3>7.2 Men&uuml;punkte im Detail</h3>
+<table>
+  <tr><th>Sektion</th><th>Men&uuml;punkt</th><th>View-ID</th><th>Icon</th><th>Rollen</th></tr>
+  <tr><td rowspan="2">Strategie &amp; Recherche</td><td>Social Discovery</td><td><code>social-discovery</code></td><td>Compass</td><td>Admin, Agentur</td></tr>
+  <tr><td>Keyword Explorer</td><td><code>keyword-explorer</code></td><td>Search</td><td>Admin, Agentur</td></tr>
+  <tr><td rowspan="2">Management</td><td>Social Media Hub</td><td><code>social-hub</code></td><td>Megaphone</td><td>Alle</td></tr>
+  <tr><td>SEO &amp; Web Content</td><td><code>seo-content</code></td><td>PenTool</td><td>Alle</td></tr>
+  <tr><td rowspan="2">Reporting</td><td>Performance Dashboard</td><td><code>dashboard</code></td><td>BarChart3</td><td>Alle</td></tr>
+  <tr><td>Post-Analytics</td><td><code>post-analytics</code></td><td>Activity</td><td>Alle</td></tr>
+</table>
+
+<p>Die Sidebar ist <strong>collapsible</strong>: 256px im erweiterten Zustand, 80px im minimierten Zustand. Im minimierten Modus werden nur Icons angezeigt mit Tooltip-Beschriftung.</p>
+
+<!-- ================= CHAPTER 8 ================= -->
+<h1 id="ch8">8. Feature Documentation</h1>
+
+<h3>8.1 SEO-Scoring Algorithmus</h3>
+<p>Der SEO-Score wird <strong>client-seitig in Echtzeit</strong> berechnet (via <code>useMemo</code>). Die Funktion <code>calculateSEOScore()</code> pr&uuml;ft 6 Kriterien:</p>
+
+<table>
+  <tr><th>#</th><th>Kriterium</th><th>Max. Punkte</th><th>Logik</th></tr>
+  <tr><td>1</td><td>Keyword im Titel (H1)</td><td>20</td><td><code>title.toLowerCase().includes(keyword)</code></td></tr>
+  <tr><td>2</td><td>Keyword in den ersten 10% des Textes</td><td>15</td><td>HTML-Tags strippen, Substring 0-10%, Keyword pr&uuml;fen</td></tr>
+  <tr><td>3</td><td>Optimale Textl&auml;nge</td><td>20</td><td>1500-2500 W&ouml;rter = 20 Pkt, 800-1500/2500-3500 = 10 Pkt, sonst 5</td></tr>
+  <tr><td>4</td><td>Meta-Titel optimiert</td><td>15</td><td>Existiert, ≤60 Zeichen, enth&auml;lt Keyword</td></tr>
+  <tr><td>5</td><td>Meta-Description optimiert</td><td>15</td><td>120-160 Zeichen, enth&auml;lt Keyword</td></tr>
+  <tr><td>6</td><td>Interne/Externe Links vorhanden</td><td>15</td><td>Pr&uuml;ft auf <code>http</code> oder <code>&lt;a </code> im Content</td></tr>
+</table>
+
+<p><strong>Score-Bewertung:</strong></p>
+<ul>
+  <li><span class="badge badge-green">80-100: Exzellent</span> &mdash; Artikel ist hervorragend optimiert</li>
+  <li><span class="badge badge-yellow">60-79: Gut</span> &mdash; Guter Ansatz mit Verbesserungspotenzial</li>
+  <li><span class="badge badge-yellow">40-59: Ausbauf&auml;hig</span> &mdash; Mehrere Bereiche optimierbar</li>
+  <li><span class="badge badge-red">0-39: Kritisch</span> &mdash; Grundlegende Optimierung erforderlich</li>
+</ul>
+
+<pre><span class="cm">// SEO-Score Visualisierung: SVG-Ring</span>
+<span class="kw">const</span> circumference = <span class="num">2</span> * Math.PI * <span class="num">40</span>  <span class="cm">// ~251.3</span>
+<span class="kw">const</span> strokeOffset = circumference - (score / <span class="num">100</span>) * circumference</pre>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: SEO-Editor mit Score-Ring</div></div>
+
+<h3>8.2 Social Media Hub &mdash; 6-Phasen Workflow</h3>
+<p>Das Herzst&uuml;ck der Social-Media-Verwaltung ist ein <strong>Kanban-Board</strong> mit sechs Phasen:</p>
+
+<div style="text-align:center;margin:20px 0">
+  <span class="flow-step" style="background:#9ca3af">0. Content Dump</span>
+  <span class="flow-arrow">&rarr;</span>
+  <span class="flow-step" style="background:#3b82f6">1. In Bearbeitung</span>
+  <span class="flow-arrow">&rarr;</span>
+  <span class="flow-step" style="background:#eab308">2. Internes Review</span>
+  <span class="flow-arrow">&rarr;</span>
+  <span class="flow-step" style="background:#a855f7">3. Approval</span>
+  <span class="flow-arrow">&rarr;</span>
+  <span class="flow-step" style="background:#22c55e">4. Freigegeben</span>
+  <span class="flow-arrow">&rarr;</span>
+  <span class="flow-step" style="background:#059669">5. Published</span>
+</div>
+
+<table>
+  <tr><th>Phase</th><th>Farbe</th><th>Beschreibung</th><th>Aktionen</th></tr>
+  <tr><td>0 - Content Dump</td><td style="color:#9ca3af">&marker; Grau</td><td>Rohe Ideen und Konzepte</td><td>Erstellen, Notizen</td></tr>
+  <tr><td>1 - In Bearbeitung</td><td style="color:#3b82f6">&marker; Blau</td><td>Aktive Content-Erstellung</td><td>Text schreiben, Assets zuweisen</td></tr>
+  <tr><td>2 - Internes Review</td><td style="color:#eab308">&marker; Gelb</td><td>Interne Qualit&auml;tskontrolle</td><td>Feedback, &Auml;nderungen</td></tr>
+  <tr><td>3 - Approval</td><td style="color:#a855f7">&marker; Lila</td><td>Kunden-Review Phase</td><td>Kunde: Freigeben/Korrektur</td></tr>
+  <tr><td>4 - Freigegeben</td><td style="color:#22c55e">&marker; Gr&uuml;n</td><td>Vom Kunden genehmigt</td><td>Scheduling, Publish vorbereiten</td></tr>
+  <tr><td>5 - Published</td><td style="color:#059669">&marker; Smaragd</td><td>Live auf der Plattform</td><td>Metriken tracken</td></tr>
+</table>
+
+<p><strong>Drag &amp; Drop:</strong> Posts k&ouml;nnen via HTML5 <code>draggable</code>/<code>onDragStart</code>/<code>onDrop</code> Events zwischen Phasen verschoben werden. Kunden k&ouml;nnen nicht draggen.</p>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: Social Media Hub Kanban Board</div></div>
+
+<h3>8.3 Social Discovery Engine</h3>
+<p>Aggregiert Trend-Signale und generiert Viral Hooks basierend auf bew&auml;hrten Copywriting-Formeln:</p>
+<table>
+  <tr><th>Formel</th><th>Akronym</th><th>Beschreibung</th></tr>
+  <tr><td>AIDA</td><td>Attention &rarr; Interest &rarr; Desire &rarr; Action</td><td>Klassisches Aufmerksamkeits-Modell</td></tr>
+  <tr><td>PAS</td><td>Problem &rarr; Agitate &rarr; Solution</td><td>Problembasierter Ansatz</td></tr>
+  <tr><td>BAB</td><td>Before &rarr; After &rarr; Bridge</td><td>Vorher-Nachher Transformation</td></tr>
+  <tr><td>FAB</td><td>Feature &rarr; Advantage &rarr; Benefit</td><td>Nutzen-orientierter Ansatz</td></tr>
+</table>
+
+<h3>8.4 Keyword Explorer</h3>
+<p>Sortierbare Tabelle mit 15 Keywords. Spalten: Keyword, Volumen, Schwierigkeit (Fortschrittsbalken), CPC, Trend. Expandierbare Zeilen zeigen verwandte Keywords. Vollfrei-Textsuche &uuml;ber Keywords und verwandte Begriffe.</p>
+
+<h3>8.5 Performance Dashboard</h3>
+<p>Drei Chart-Typen via Chart.js:</p>
+<ul>
+  <li><strong>Line Chart:</strong> Monatliche Reichweiten-Entwicklung (Oktober&ndash;M&auml;rz)</li>
+  <li><strong>Doughnut Chart:</strong> Plattform-Verteilung nach Reichweite</li>
+  <li><strong>Bar Chart:</strong> W&ouml;chentliche Posting-Aktivit&auml;t + Engagement-Rate</li>
+</ul>
+
+<h3>8.6 Article Editor</h3>
+<p>Drei Tabs: <strong>Editor</strong> (H1, Keywords, HTML-Content), <strong>SEO-Analyse</strong> (Score-Ring + Breakdown), <strong>Meta-Daten</strong> (Meta-Titel, Meta-Description, Google-SERP-Vorschau, URL-Slug).</p>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: Article Editor mit SEO-Analyse Tab</div></div>
+
+<!-- ================= CHAPTER 9 ================= -->
+<h1 id="ch9">9. User Flow Diagrams</h1>
+
+<h3>9.1 Agentur-Workflow (Erstellung)</h3>
+<div class="diagram">
+  [Discovery]          [Planung]           [Creation]
+  Keyword-Recherche &rarr; Post im Content &rarr; Text + Asset
+  im Hub               Dump anlegen        hinzuf&uuml;gen
+       |                    |                   |
+       v                    v                   v
+  Trends analysieren   Plattform, Datum    Status auf
+  Hooks kopieren       Kunde zuweisen     "Internes Review"
+                                               |
+       +---------------------------------------+
+       |
+       v
+  [Internes Review]     [Approval]          [Publish]
+  Agentur-Team &rarr;       Kunde &rarr;              Per API an
+  pr&uuml;ft Qualit&auml;t        gibt frei oder       WordPress /
+  Korrekturen           sendet Korrektur    Instagram
+</div>
+
+<h3>9.2 Kunden-Workflow (Freigabe)</h3>
+<div class="diagram">
+  [Benachrichtigung]    [Login]             [Review]
+  E-Mail &uuml;ber &rarr;        Kunde sieht nur &rarr;  Korrekturen direkt
+  neuen Content         Approval-Board      im Text vornehmen
+       |                    |                   |
+       v                    v                   v
+  Link zum Hub          RBAC: nur Phase 3   Kommentare
+  &ouml;ffnen                sichtbar            hinzuf&uuml;gen
+                                               |
+       +---------------------------------------+
+       |
+       v
+  [Abschluss]
+  "Freigeben" &rarr; Post geht zu Phase 4
+  "Korrektur erforderlich" &rarr; Zur&uuml;ck an Agentur
+</div>
+
+<h3>9.3 SEO-Artikel Workflow</h3>
+<div class="diagram">
+  Keyword Explorer &rarr; Artikel erstellen &rarr; SEO optimieren
+       |                    |                   |
+       v                    v                   v
+  Keyword w&auml;hlen       Titel, Keywords     Score in Echtzeit
+  Metriken pr&uuml;fen     Content schreiben   Meta-Daten ausf&uuml;llen
+                                               |
+                                               v
+                                         Google Vorschau &rarr; Speichern
+</div>
+
+<!-- ================= CHAPTER 10 ================= -->
+<h1 id="ch10">10. User Manual / Usage Instructions</h1>
+
+<h3>10.1 Anmeldung</h3>
+<ol>
+  <li>&Ouml;ffnen Sie die Anwendung im Browser.</li>
+  <li>W&auml;hlen Sie einen <strong>Demo-Zugang</strong> (Admin / Agentur / Kunde) oder melden Sie sich mit E-Mail und Passwort an.</li>
+  <li>Nach erfolgreicher Anmeldung werden Sie zum Performance Dashboard weitergeleitet.</li>
+</ol>
+
+<div class="note"><strong>Demo-Zugangsdaten:</strong><br>Admin: admin@hubpro.de | Agentur: agentur@hubpro.de | Kunde: kunde@hubpro.de<br>Passwort: beliebig (wird im Demo-Modus nicht gepr&uuml;ft)</div>
+
+<h3>10.2 Einen neuen Social-Post erstellen</h3>
+<ol>
+  <li>Navigieren Sie zu <strong>Social Media Hub</strong> in der Sidebar.</li>
+  <li>Klicken Sie oben rechts auf <strong>+ Neuer Post</strong>.</li>
+  <li>Geben Sie <strong>Titel</strong>, <strong>Plattform</strong> und <strong>Caption</strong> ein.</li>
+  <li>W&auml;hlen Sie das geplante <strong>Datum</strong> und die aktuelle <strong>Phase</strong>.</li>
+  <li>Klicken Sie auf <strong>Post erstellen</strong>.</li>
+  <li>Der Post erscheint in der gew&auml;hlten Kanban-Spalte.</li>
+  <li>Verschieben Sie den Post per <strong>Drag &amp; Drop</strong> zwischen Phasen.</li>
+</ol>
+
+<h3>10.3 Einen Blog-Artikel erstellen</h3>
+<ol>
+  <li>Navigieren Sie zu <strong>SEO &amp; Web Content</strong>.</li>
+  <li>Klicken Sie auf <strong>+ Artikel erstellen</strong>.</li>
+  <li>Geben Sie das <strong>Fokus-Keyword</strong> ein und best&auml;tigen Sie mit Enter.</li>
+  <li>Schreiben Sie den Text im <strong>Editor-Tab</strong>. Beobachten Sie, wie die Wortanzahl und Lesezeit automatisch berechnet werden.</li>
+  <li>Wechseln Sie zum <strong>SEO-Analyse Tab</strong>, um den Score und die Detailanalyse zu sehen.</li>
+  <li>Im <strong>Meta-Daten Tab</strong> f&uuml;llen Sie Meta-Titel (max. 60 Zeichen) und Meta-Description (120-160 Zeichen) aus.</li>
+  <li>Pr&uuml;fen Sie die <strong>Google-Vorschau</strong>.</li>
+  <li>W&auml;hlen Sie den Status und klicken Sie auf <strong>Speichern</strong>.</li>
+</ol>
+
+<h3>10.4 Feedback als Kunde geben</h3>
+<ol>
+  <li>Melden Sie sich als <strong>Kunde</strong> an.</li>
+  <li>&Ouml;ffnen Sie den <strong>Social Media Hub</strong> &mdash; Sie sehen nur den Approval-Bereich.</li>
+  <li>Klicken Sie auf eine <strong>Post-Karte</strong>, um die Details zu &ouml;ffnen.</li>
+  <li>Schreiben Sie Ihren <strong>Kommentar</strong> in das Eingabefeld und senden Sie ihn ab.</li>
+  <li>Klicken Sie auf <strong>Freigeben</strong> oder <strong>Korrektur erforderlich</strong>.</li>
+</ol>
+
+<h3>10.5 Dark Mode aktivieren</h3>
+<ol>
+  <li>Klicken Sie auf das <strong>Mond-Symbol</strong> &#9789; im Header oben rechts.</li>
+  <li>Die gesamte Oberfl&auml;che wechselt in den Dark Mode.</li>
+  <li>Erneutes Klicken wechselt zur&uuml;ck in den Light Mode.</li>
+</ol>
+
+<div class="screenshot"><div class="icon">&#128248;</div><div class="label">SCREENSHOT: Dark Mode Ansicht</div></div>
+
+<!-- ================= CHAPTER 11 ================= -->
+<h1 id="ch11">11. Security Architecture</h1>
+
+<h3>11.1 Rollenbasierte Sicherheit (RBAC)</h3>
+<p>Die Sicherheit wird auf zwei Ebenen erzwungen:</p>
+
+<table>
+  <tr><th>Ebene</th><th>Mechanismus</th><th>Implementierung</th></tr>
+  <tr><td>UI-Ebene</td><td>Bedingtes Rendering</td><td><code>if (isClient) return null</code> &mdash; verbirgt Men&uuml;punkte und Buttons</td></tr>
+  <tr><td>Daten-Ebene</td><td>Firebase Security Rules</td><td>Pr&uuml;fung ob User-Dokument Schreibberechtigung f&uuml;r Collection hat</td></tr>
+  <tr><td>Men&uuml;-Ebene</td><td>agencyOnly Flag</td><td>Sidebar-Items mit <code>agencyOnly: true</code> werden f&uuml;r Kunden ausgeblendet</td></tr>
+  <tr><td>Formular-Ebene</td><td>disabled Attribut</td><td>Input-Felder sind f&uuml;r Kunden schreibgesch&uuml;tzt</td></tr>
+</table>
+
+<h3>11.2 API-Sicherheit</h3>
+<ul>
+  <li>Alle externen API-Keys werden als <strong>Environment Variables</strong> auf Vercel gespeichert.</li>
+  <li>Keys sind <strong>niemals im Client-Code</strong> sichtbar.</li>
+  <li>Firebase-Konfiguration nutzt eingeschr&auml;nkte Client-Side-Schl&uuml;ssel.</li>
+  <li>Sensible Operationen laufen &uuml;ber Firebase Cloud Functions (Server-Side).</li>
+</ul>
+
+<h3>11.3 Authentifizierungs-Flow</h3>
+<div class="diagram">
+  Benutzer               Frontend              Firebase Auth
+     |                      |                       |
+     |--- Login-Request ---&gt;|                       |
+     |                      |--- signInWith... ---&gt; |
+     |                      |                       |
+     |                      |&lt;-- idToken ---------- |
+     |                      |                       |
+     |&lt;-- User-Objekt ------| (gespeichert im       |
+     |   (Rolle, Avatar)    |  AuthContext)          |
+     |                      |                       |
+     |--- Daten-Anfrage ---&gt;|--- Firestore Query --&gt;|
+     |                      |   (mit idToken)       |
+     |                      |&lt;-- Daten ------------ |
+     |&lt;-- UI Update --------|                       |
+</div>
+
+<!-- ================= CHAPTER 12 ================= -->
+<h1 id="ch12">12. Scalability Strategy</h1>
+
+<table>
+  <tr><th>Bereich</th><th>Strategie</th><th>Details</th></tr>
+  <tr><td>Datenbank</td><td>Firestore Auto-Scaling</td><td>Skaliert automatisch horizontal auf Millionen von Datens&auml;tzen</td></tr>
+  <tr><td>Asset Delivery</td><td>Vercel Edge Network (CDN)</td><td>Bilder und Videos global unter 100ms Ladezeit</td></tr>
+  <tr><td>Frontend Caching</td><td>SWR (Stale-While-Revalidate)</td><td>Analytics-Daten werden gecacht, um API-Aufrufe zu minimieren</td></tr>
+  <tr><td>Code Splitting</td><td>Vite Dynamic Import</td><td>Automatisches Aufteilen des Bundles f&uuml;r schnelleres Initial Load</td></tr>
+  <tr><td>Bundle-Gr&ouml;&szlig;e</td><td>Optimiert</td><td>429 KB JS + 35 KB CSS (gzipped: ~142 KB)</td></tr>
+</table>
+
+<h3>Build-Output Analyse</h3>
+<pre>dist/index.html                   0.50 kB &boxv; gzip:   0.33 kB
+dist/assets/index-CzmHFAK6.css   35.34 kB &boxv; gzip:   6.26 kB
+dist/assets/index-BXeW0wXT.js   429.79 kB &boxv; gzip: 136.18 kB
+&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;
+Built in 6.90s</pre>
+
+<!-- ================= CHAPTER 13 ================= -->
+<h1 id="ch13">13. Development Roadmap</h1>
+
+<table>
+  <tr><th>Phase</th><th>Zeitraum</th><th>Meilensteine</th><th>Status</th></tr>
+  <tr><td><strong>Phase 1</strong></td><td>Monat 1</td><td>Kern-Architektur, Firebase-Anbindung, Auth-System, Layout</td><td><span class="badge badge-green">Abgeschlossen</span></td></tr>
+  <tr><td><strong>Phase 2</strong></td><td>Monat 2</td><td>SEO-Editor, Social Workflow-Board, Discovery Engine</td><td><span class="badge badge-green">Abgeschlossen</span></td></tr>
+  <tr><td><strong>Phase 3</strong></td><td>Monat 3</td><td>Analytics-Integration, WordPress/Meta/LinkedIn API-Konnektoren</td><td><span class="badge badge-yellow">Geplant</span></td></tr>
+  <tr><td><strong>Phase 4</strong></td><td>Monat 4</td><td>Beta-Test mit Agentur-Partnern, Feedback-Iteration</td><td><span class="badge badge-yellow">Geplant</span></td></tr>
+</table>
+
+<h3>Aktueller Status: Phase 2 abgeschlossen (Frontend-MVP)</h3>
+<p>Alle Kernmodule sind implementiert und funktionsf&auml;hig mit Demo-Daten. Die Firebase-Integration und externen API-Konnektoren stehen in Phase 3 an.</p>
+
+<!-- ================= CHAPTER 14 ================= -->
+<h1 id="ch14">14. Appendix</h1>
+
+<h3>14.1 Beispiel API-Call (WordPress Integration)</h3>
+<pre><span class="kw">const</span> <span class="fn">publishToWP</span> = <span class="kw">async</span> (article) =&gt; {
+  <span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`${WP_API_URL}/posts`</span>, {
+    method: <span class="str">'POST'</span>,
+    headers: { <span class="str">'Authorization'</span>: <span class="str">`Bearer ${token}`</span> },
+    body: JSON.<span class="fn">stringify</span>({
+      title: article.title,
+      content: article.htmlContent,
+      status: <span class="str">'publish'</span>
+    })
+  });
+  <span class="kw">return</span> response.<span class="fn">json</span>();
+};</pre>
+
+<h3>14.2 NPM Dependencies</h3>
+<table>
+  <tr><th>Paket</th><th>Version</th><th>Typ</th></tr>
+  <tr><td>react</td><td>^18.3.1</td><td>Production</td></tr>
+  <tr><td>react-dom</td><td>^18.3.1</td><td>Production</td></tr>
+  <tr><td>chart.js</td><td>^4.4.7</td><td>Production</td></tr>
+  <tr><td>react-chartjs-2</td><td>^5.2.0</td><td>Production</td></tr>
+  <tr><td>lucide-react</td><td>^0.468.0</td><td>Production</td></tr>
+  <tr><td>vite</td><td>^6.0.5</td><td>Development</td></tr>
+  <tr><td>@vitejs/plugin-react</td><td>^4.3.4</td><td>Development</td></tr>
+  <tr><td>tailwindcss</td><td>^3.4.17</td><td>Development</td></tr>
+  <tr><td>postcss</td><td>^8.4.49</td><td>Development</td></tr>
+  <tr><td>autoprefixer</td><td>^10.4.20</td><td>Development</td></tr>
+</table>
+
+<h3>14.3 Build &amp; Deployment</h3>
+<pre><span class="cm"># Installation</span>
+npm install
+
+<span class="cm"># Entwicklungsserver starten</span>
+npm run dev
+
+<span class="cm"># Produktions-Build</span>
+npm run build
+
+<span class="cm"># Build-Vorschau</span>
+npm run preview</pre>
+
+<h3>14.4 Vercel Deployment</h3>
+<ol>
+  <li>Repository auf GitHub pushen</li>
+  <li>Vercel-Projekt importieren unter vercel.com</li>
+  <li>Framework: <strong>Vite</strong> (automatisch erkannt)</li>
+  <li>Build Command: <code>npm run build</code></li>
+  <li>Output Directory: <code>dist</code></li>
+  <li>Die <code>vercel.json</code> konfiguriert SPA-Routing (Rewrites)</li>
+</ol>
+
+<h3>14.5 Environment Variables</h3>
+<table>
+  <tr><th>Variable</th><th>Beschreibung</th><th>Umgebung</th></tr>
+  <tr><td><code>VITE_FIREBASE_API_KEY</code></td><td>Firebase API-Schl&uuml;ssel</td><td>Client</td></tr>
+  <tr><td><code>VITE_FIREBASE_AUTH_DOMAIN</code></td><td>Firebase Auth Domain</td><td>Client</td></tr>
+  <tr><td><code>VITE_FIREBASE_PROJECT_ID</code></td><td>Firebase Projekt-ID</td><td>Client</td></tr>
+  <tr><td><code>WP_API_URL</code></td><td>WordPress REST API URL</td><td>Server</td></tr>
+  <tr><td><code>META_ACCESS_TOKEN</code></td><td>Meta Graph API Token</td><td>Server</td></tr>
+  <tr><td><code>LINKEDIN_CLIENT_SECRET</code></td><td>LinkedIn OAuth Secret</td><td>Server</td></tr>
+</table>
+
+<h3>14.6 Version History</h3>
+<table>
+  <tr><th>Version</th><th>Datum</th><th>Beschreibung</th></tr>
+  <tr><td>1.0.0</td><td>M&auml;rz 2024</td><td>Initial Release: Alle Kernmodule (Social Hub, SEO Editor, Discovery, Analytics, Auth/RBAC)</td></tr>
+</table>
+
+<h3>14.7 Screenshot-Platzhalter</h3>
+<ul>
+  <li>[SCREENSHOT_LOGIN_PAGE] &mdash; Login-Seite mit Demo-Zug&auml;ngen</li>
+  <li>[SCREENSHOT_DASHBOARD_OVERVIEW] &mdash; Performance Dashboard</li>
+  <li>[SCREENSHOT_SOCIAL_HUB_KANBAN] &mdash; Social Media Hub Kanban-Board</li>
+  <li>[SCREENSHOT_SEO_EDITOR_METRICS] &mdash; SEO-Editor mit Score-Ring</li>
+  <li>[SCREENSHOT_ARTICLE_GOOGLE_PREVIEW] &mdash; Google SERP-Vorschau</li>
+  <li>[SCREENSHOT_SOCIAL_DISCOVERY] &mdash; Trending Topics &amp; Viral Hooks</li>
+  <li>[SCREENSHOT_KEYWORD_EXPLORER] &mdash; Keyword-Recherche Tabelle</li>
+  <li>[SCREENSHOT_POST_ANALYTICS] &mdash; Post Detail-Metriken</li>
+  <li>[SCREENSHOT_DARK_MODE] &mdash; Dark Mode Ansicht</li>
+  <li>[SCREENSHOT_SOCIAL_CALENDAR_VIEW] &mdash; Kalender-Ansicht (Phase 3)</li>
+</ul>
+
+</div>
+
+<footer>
+  <p><strong>Content Hub Pro</strong> &mdash; Technische Dokumentation v1.0.0 &mdash; M&auml;rz 2024</p>
+  <p>&copy; Content Hub Pro Engineering Team. Alle Rechte vorbehalten. Vertrauliches Dokument.</p>
+</footer>
+
+</body>
+</html>
